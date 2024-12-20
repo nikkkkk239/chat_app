@@ -28,7 +28,7 @@ function SignUpPage() {
 
     const succcess = validateForm()
     if(succcess == true){
-      signup(formData)
+      signup(formData);
     }
 
 
