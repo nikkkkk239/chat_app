@@ -5,7 +5,6 @@ import bcrypt from "bcryptjs"
 import cloudinary from "../lib/cloudinary.js";
 
 export const signup =async(req,res)=>{
-    console.log(req.body);
     const {fullName,email,password} = req.body;
     if(!fullName || !email || !password){
         return res.send(400).json({message:"Data not provided."})
