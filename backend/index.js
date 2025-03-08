@@ -10,11 +10,10 @@ import cookieParser from "cookie-parser";
 import path from "path"
 dotenv.config();
 
-
 const PORT = process.env.PORT || 8000
 
 app.use(cors({
-    origin:process.env.FRONTEND_URL,
+    origin:'*',
     credentials:true,
 }))
 app.use(express.json())
