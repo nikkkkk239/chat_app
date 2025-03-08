@@ -7,7 +7,9 @@ import dotenv from 'dotenv'
 import { connectDb } from "./src/lib/db.js";
 import {app,server} from "./src/lib/socket.js"
 import cookieParser from "cookie-parser";
+import path from "path"
 dotenv.config();
+
 
 const PORT = process.env.PORT || 8000
 
