@@ -13,7 +13,7 @@ dotenv.config();
 const PORT = process.env.PORT || 8000
 
 app.use(cors({
-    origin:'*',
+    origin:process.env.FRONTEND_URL,
     credentials:true,
 }))
 app.use(express.json())
