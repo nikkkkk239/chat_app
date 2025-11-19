@@ -27,10 +27,10 @@ export const signup =async(req,res)=>{
             password:hashedPassword,
         })
         if(newUser){
-            generateToken(newUser._id,res);
+            const token = generateToken(newUser._id);
             await newUser.save();
 
-            return res.status(201).json({_id:newUser._id,fullName:newUser.fullName,email:newUser.email,profilePic:newUser.profilePic})
+            return res.status(201).json({_id:newUser._id,fullName:newUser.fullName,email:newUser.email,profilePic:newUser.profilePic, token})
         }else{
             return res.status(400).json({message:"Invalid user data."})
         }
@@ -55,12 +55,8 @@ export const login =async(req,res)=>{
         if(!isCorrect){
             return res.status(400).json({message:"Incorrect password ."})
         }
-        generateToken(user._id,res);
-        return res.status(200).json({_id:user
-            ._id,fullName:user
-            .fullName,email:user
-            .email,profilePic:user
-            .profilePic})
+        const token = generateToken(user._id);
+        return res.status(200).json({_id:user._id,fullName:user.fullName,email:user.email,profilePic:user.profilePic, token})
     } catch (error) {
         console.log("An error occured in login : ",error);
         return res.status(500).json({message:"An internal server error."})
@@ -68,8 +64,8 @@ export const login =async(req,res)=>{
 }
 export const logout =async(req,res)=>{
     try {
-        res.cookie('jwt',"",{maxAge:0})
-        return res.status(200).json({message:"Logged out sccuessful."});
+        // Client should remove the token on logout. Server doesn't store JWT state.
+        return res.status(200).json({message:"Logged out successful."});
 
     } catch (error) {
         console.log("error in log out contoller ",error);

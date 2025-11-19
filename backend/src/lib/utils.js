@@ -1,19 +1,17 @@
 import jwt from "jsonwebtoken"
 
-export const generateToken=(userId,res)=>{
-    const token = jwt.sign({userId},process.env.JWT_TOKEN,{
-        expiresIn:"7d",
+export const generateToken = (userId) => {
+    const token = jwt.sign({ userId }, process.env.JWT_TOKEN, {
+        expiresIn: "7d",
     });
 
-    res.cookie("jwt",token,{
-        maxAge:7*24*60*60*1000,
-        httpOnly:true,
-        sameSite:"none",
-        secure:true,
-        domain: ".vercel.app", 
-        path: "/", 
-
-    })
     return token;
+}
 
+export const verifyToken = (token) => {
+    try {
+        return jwt.verify(token, process.env.JWT_TOKEN);
+    } catch (err) {
+        return null;
+    }
 }
